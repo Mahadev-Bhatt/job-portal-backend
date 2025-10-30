@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: job-portal-backend
+    runtime: docker
+    plan: free
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: jobportal-mysql
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: jobportal-mysql
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: jobportal-mysql
+          property: password
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
+      - key: SPRING_JPA_SHOW_SQL
+        value: "true"
+      - key: PORT
+        value: 8080
+
+databases:
+  - name: jobportal-mysql
+    databaseName: job_portal
+    plan: free
